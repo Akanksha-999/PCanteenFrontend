@@ -1,13 +1,30 @@
 import axios from 'axios';
 
-const api = axios.create({
- // baseURL: 'http://192.168.140.36:8080/', 
+/*const api = axios.create({
+
    baseURL: 'http://localhost:8080/', 
 
   headers: {
     'Content-Type': 'application/json',
   },
+});*/
+
+// 1) Pick base URL from env (production will be Netlify),
+//    fallback to Railway in case env is missing.
+//    In dev, CRA will load .env.development (localhost).
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL ||
+  "https://pcanteen-backend-production.up.railway.app";
+
+// 2) Normalize: remove any trailing slash so "api/..." joins correctly
+const baseURL = API_BASE.replace(/\/+$/, "");
+
+const api = axios.create({
+  baseURL,              // e.g. https://pcanteen-backend-production.up.railway.app
+  headers: { "Content-Type": "application/json" },
+  // withCredentials: true, // turn ON only if you use cookies/sessions
 });
+
 
 // Transaction API endpoints
 export const transactionApi = {
@@ -71,7 +88,7 @@ export const feedbackApi = {
   // Notifications
   getMyNotifications: () => api.get('api/feedback/notifications/my'),
   createNotification: (data) => api.post('api/feedback/notifications', data),
-  markAsRead: (id) => api.patch(`/api/feedback/notifications/${id}/read`),
+  markAsRead: (id) => api.patch(`api/feedback/notifications/${id}/read`),
   clearAllNotifications: () => api.delete('api/feedback/notifications'),
 
   // Suggestions
@@ -82,13 +99,13 @@ export const feedbackApi = {
   // Admin only
   getAllSuggestions: (filters) => api.get('api/feedback/suggestions', { params: filters }),
 
-    getAllCustomers: () => api.get('/api/admin/customers'),
+    getAllCustomers: () => api.get('api/admin/customers'),
 
 };
 
 
 export const employeeApi = {
-  getAllCustomers: () => api.get('/api/admin/customers'),
+  getAllCustomers: () => api.get('api/admin/customers'),
   // not written employee endpoints yet...
 };
 

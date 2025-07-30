@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect, useRef } from "react"
@@ -19,6 +20,9 @@ import {
   Loader,
   ShoppingCart,
   Sparkles,
+  Salad,
+  Soup,
+  IceCream,
 } from "lucide-react"
 
 export default function ModernCanteenHomepage() {
@@ -134,7 +138,6 @@ export default function ModernCanteenHomepage() {
             menuId: item.menuId,
             name: item.name,
             price: item.price,
-            // FIXED: Use availableStatus instead of isActive for availability
             available: item.availableStatus && isItemActive(item.startDate, item.endDate),
             category: item.category,
             description: item.description,
@@ -192,12 +195,17 @@ export default function ModernCanteenHomepage() {
       case "breakfast":
         return <Coffee className="w-5 h-5" />
       case "lunch":
-      case "thali":
         return <Utensils className="w-5 h-5" />
       case "snacks":
+        return <IceCream className="w-5 h-5" />
       case "beverages":
-      default:
         return <Coffee className="w-5 h-5" />
+      case "thali":
+        return <Salad className="w-5 h-5" />
+      case "soup":
+        return <Soup className="w-5 h-5" />
+      default:
+        return <ChefHat className="w-5 h-5" />
     }
   }
 
@@ -412,12 +420,15 @@ export default function ModernCanteenHomepage() {
         ))}
       </div>
 
-      {/* Hero Section with Text Masking */}
-      <section className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white py-20 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"
-          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-        ></div>
+      {/* New Hero Section with Glass Morphism */}
+      <section className="relative bg-gradient-to-br from-blue-900 to-purple-900 text-white py-32 overflow-hidden">
+        {/* Glass Morphic Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-800/30 via-purple-800/30 to-blue-900/30 backdrop-blur-md"></div>
+        
+        {/* Geometric Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')]"></div>
+        </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           {/* Header with Cart Button */}
@@ -425,7 +436,7 @@ export default function ModernCanteenHomepage() {
             <div></div>
             <button
               onClick={() => setShowCart(true)}
-              className="relative bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/30 transition-all shadow-lg hover:shadow-xl"
+              className="relative bg-white/10 backdrop-blur-md text-white px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-white/20 transition-all shadow-lg hover:shadow-xl border border-white/20"
             >
               <ShoppingCart className="w-5 h-5" />
               {getCartNotificationText()}
@@ -437,20 +448,26 @@ export default function ModernCanteenHomepage() {
             </button>
           </div>
 
-          {/* Animated Welcome Text with Gradient Mask */}
+          {/* Enhanced Welcome Text with 3D Effect */}
           <div className="relative mb-6">
-            <h2 className="text-6xl md:text-7xl font-bold mb-4 relative">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 relative">
               <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent animate-gradient-x">
                 Welcome to
               </span>
             </h2>
-            <h1 className="text-7xl md:text-8xl font-black relative">
-              <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-gradient-x animation-delay-1000">
+            <h1 className="text-6xl md:text-8xl font-black relative">
+              <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent animate-gradient-x animation-delay-1000 relative z-10">
                 Office Canteen
               </span>
-              <div className="absolute -inset-1 bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 rounded-lg blur opacity-20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 rounded-lg blur-3xl opacity-20 animate-pulse"></div>
             </h1>
+            <p className="text-xl md:text-2xl text-white/80 mt-6 max-w-2xl mx-auto">
+              Delicious meals prepared fresh daily for our valued employees
+            </p>
           </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl h-40 bg-gradient-to-t from-blue-900/50 to-transparent rounded-t-full blur-xl"></div>
         </div>
 
         {/* Animated Wave */}
@@ -721,7 +738,7 @@ export default function ModernCanteenHomepage() {
                   <p className="text-blue-500 font-bold text-xl">₹{selectedItem.price}</p>
                 </div>
               </div>
-              {selectedItem.description && <p className="text-gray-600 text-sm">{selectedItem.description}</p>}
+                            {selectedItem.description && <p className="text-gray-600 text-sm">{selectedItem.description}</p>}
             </div>
 
             {/* Quantity Selector */}

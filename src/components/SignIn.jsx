@@ -22,7 +22,7 @@ function SignIn() {
     }
 
      try {
-      const response = await api.post('/api/auth/signin', { 
+      const response = await api.post('api/auth/signin', { 
         employeeId, 
         password 
       });
