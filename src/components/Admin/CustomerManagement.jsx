@@ -131,7 +131,7 @@ export default function CustomerManagement() {
         }
       }
 
-      const response = await api.get(`/api/admin/customers/filter?${params.toString()}`)
+      const response = await api.get(`api/admin/customers/filter?${params.toString()}`)
       const filteredCustomers = response.data.filter((customer) => customer.employeeId !== "superadmin")
       setCustomers(filteredCustomers)
       setLoading(false)
@@ -223,9 +223,9 @@ export default function CustomerManagement() {
           customerType: formData.customerType,
           isActive: formData.isActive,
         }
-        await api.put(`/api/admin/customers/${currentCustomer.id}, updatedCustomer`)
+        await api.put(`api/admin/customers/${currentCustomer.id}, updatedCustomer`)
       } else {
-        await api.post("/api/admin/customers", formData)
+        await api.post("api/admin/customers", formData)
       }
       setIsAddModalOpen(false)
       setIsEditModalOpen(false)
@@ -241,7 +241,7 @@ export default function CustomerManagement() {
 
   const toggleCustomerStatus = async (id, currentStatus) => {
     try {
-      await api.patch(`/api/admin/customers/${id}/status?active=${!currentStatus}`)
+      await api.patch(`api/admin/customers/${id}/status?active=${!currentStatus}`)
       fetchCustomers()
       setError(null)
     } catch (error) {

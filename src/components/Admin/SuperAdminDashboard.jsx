@@ -11,9 +11,9 @@ export default function SuperAdminDashboard() {
 
   const promoteToAdmin = async (employeeId) => {
     try {
-      const response = await api.post('/api/admin/promote', { employeeId });
+      const response = await api.post('api/admin/promote', { employeeId });
       console.log(response.data);
-      const updatedResponse = await api.get('/api/admin/employees');
+      const updatedResponse = await api.get('api/admin/employees');
       setEmployees(updatedResponse.data);
     } catch (error) {
       console.error('Promotion failed:', error);
@@ -22,9 +22,9 @@ export default function SuperAdminDashboard() {
 
   const demoteAdmin = async (employeeId) => {
     try {
-      const response = await api.post('/api/admin/demote', { employeeId });
+      const response = await api.post('api/admin/demote', { employeeId });
       console.log(response.data);
-      const updatedResponse = await api.get('/api/admin/employees');
+      const updatedResponse = await api.get('api/admin/employees');
       setEmployees(updatedResponse.data);
     } catch (error) {
       console.error('Demotion failed:', error);
@@ -34,7 +34,7 @@ export default function SuperAdminDashboard() {
   useEffect(() => {
     const loadEmployees = async () => {
       try {
-        const response = await api.get('/api/admin/employees');
+        const response = await api.get('api/admin/employees');
         setEmployees(response.data);
       } catch (error) {
         console.error('Failed to load employees:', error);
